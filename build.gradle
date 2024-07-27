@@ -27,7 +27,7 @@ sonarqube {
 repositories {
     mavenCentral()
     maven {
-        url "https://npm-hei-school-088312068315.d.codeartifact.eu-west-3.amazonaws.com/maven/harena-store/"
+        url "https://patrimoine-harena-016161980486.d.codeartifact.eu-west-3.amazonaws.com/maven/harena-mav/"
         credentials {
             username = "aws"
             password = project.findProperty("aws.codeartifact.auth.token") ?: System.getenv("CODEARTIFACT_AUTH_TOKEN")
