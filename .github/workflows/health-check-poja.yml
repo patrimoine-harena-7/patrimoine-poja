@@ -53,12 +53,12 @@ jobs:
 
       - name: Install poja
         run: |
+          python -m venv venv
           source venv/bin/activate
           pip install poja --upgrade
 
       - name: Run POJA tool
         run: |
-          source venv/bin/activate
           python -m poja --poja-conf poja.yml --output-dir=. --github-username=${{ secrets.POJA_GH_USERNAME }} --github-token=${{ secrets.POJA_GH_TOKEN }}
 
       - name: Check for changes
