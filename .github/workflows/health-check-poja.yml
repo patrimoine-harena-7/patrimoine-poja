@@ -1,5 +1,4 @@
 name: Health check poja
-# Fails if poja is not latest or generation is not idempotent
 
 on:
   push:
@@ -9,7 +8,6 @@ on:
     branches:
       - '*'
   workflow_dispatch:
-
   workflow_call:
 
 jobs:
@@ -31,6 +29,17 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: Create and activate virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+
+      - name: Install pip and dependencies
+        run: |
+          source venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install awscli
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4.0.2
         with:
@@ -38,9 +47,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-3
 
-      - name: Connect to Private Codeartifact
+      - name: Connect to Private CodeArtifact
         run: |
           aws codeartifact login --tool pip --repository harena-mav --domain patrimoine-harena --domain-owner 016161980486 --region eu-west-3
-      - run: pip install poja --upgrade
-      - run: python -m poja --poja-conf poja.yml --output-dir=. --github-username=${{ secrets.POJA_GH_USERNAME }} --github-token=${{ secrets.POJA_GH_TOKEN }}
-      - run: git diff --exit-code
+
+      - name: Install poja
+        run: |
+          source venv/bin/activate
+          pip install poja --upgrade
+
+      - name: Run POJA tool
+        run: |
+          source venv/bin/activate
+          python -m poja --poja-conf poja.yml --output-dir=. --github-username=${{ secrets.POJA_GH_USERNAME }} --github-token=${{ secrets.POJA_GH_TOKEN }}
+
+      - name: Check for changes
+        run: |
+          git diff --exit-code
