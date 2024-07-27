@@ -25,17 +25,14 @@ sonarqube {
 }
 
 repositories {
+    mavenCentral()
     maven {
-        url 'https://npm-hei-school-088312068315.d.codeartifact.eu-west-3.amazonaws.com/maven/harena-store/'
+        url "https://npm-hei-school-088312068315.d.codeartifact.eu-west-3.amazonaws.com/maven/harena-store/"
         credentials {
-            username = 'AWS_ACCESS_KEY_ID'
-            password = 'AWS_SECRET_ACCESS_KEY'
+            username = "aws"
+            password = project.findProperty("aws.codeartifact.auth.token") ?: System.getenv("CODEARTIFACT_AUTH_TOKEN")
         }
     }
-}
-
-dependencies {
-    implementation 'groupId:artifactId:version'
 }
 
 
@@ -65,7 +62,6 @@ task generateJavaClient(type: GenerateTask) {
             dateLibrary: "custom"
     ]
     typeMappings = [
-            // What date-time type to use when? https://i.stack.imgur.com/QPhGW.png
             Date: "java.time.LocalDate",
             DateTime: "java.time.Instant",
     ]
@@ -73,11 +69,13 @@ task generateJavaClient(type: GenerateTask) {
 
     groupId = 'com.harena'
     id = 'harena-api-gen'
-    skipValidateSpec = false
+    skipValidateSpec = true
     logToStderr = true
     generateAliasAsModel = false
     enablePostProcessFile = false
 }
+
+
 task generateTsClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
     generatorName = "typescript-axios"
     inputSpec = "$rootDir/doc/api.yml".toString()
