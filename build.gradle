@@ -16,14 +16,14 @@ plugins {
 jacoco {
     toolVersion = "0.8.11"
 }
-
+/*
 sonarqube {
     properties {
         property "sonar.java.source", "21"
         property "sonar.java.target", "21"
         property 'sonar.gradle.skipCompile', 'true'
     }
-}
+}*/
 
 repositories {
     mavenCentral()

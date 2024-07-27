@@ -41,7 +41,6 @@ jobs:
       - name: Connect to Private Codeartifact
         run: |
           aws codeartifact login --tool pip --repository harena-mav --domain patrimoine-harena --domain-owner 016161980486 --region eu-west-3
-
       - run: pip install poja --upgrade
       - run: python -m poja --poja-conf poja.yml --output-dir=. --github-username=${{ secrets.POJA_GH_USERNAME }} --github-token=${{ secrets.POJA_GH_TOKEN }}
       - run: git diff --exit-code
