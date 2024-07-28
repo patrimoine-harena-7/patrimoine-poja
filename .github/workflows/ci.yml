@@ -48,5 +48,5 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
 
-     # - run: chmod +x format.sh
-     #  - run: ./format.sh && git diff --exit-code
+      - run: chmod +x format.sh
+      - run: ./format.sh && git diff --exit-code
