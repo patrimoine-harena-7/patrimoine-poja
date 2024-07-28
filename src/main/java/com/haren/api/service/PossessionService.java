@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import school.hei.patrimoine.modele.Patrimoine;
 import school.hei.patrimoine.modele.possession.Possession;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class PossessionService {
@@ -39,8 +36,31 @@ public class PossessionService {
 
     public List<Possession> crupdatePatrimoinePossessions(
             String nomPatrimoine, List<Possession> possessions) {
-        return List.of();
+
+        Patrimoine patrimoine = patrimoineService.getPatrimoineByName(nomPatrimoine);
+        if (patrimoine == null) {
+            throw new IllegalArgumentException("The heritage with the given name does not exist.");
+        }
+            Set<Possession> updatedPossessions = new HashSet<>(patrimoine.possessions());
+
+            for (Possession newPossession : possessions) {
+                updatedPossessions.removeIf(p -> p.getNom().equals(newPossession.getNom()));
+                updatedPossessions.add(newPossession);
+            }
+
+            Patrimoine updatedPatrimoine = new Patrimoine(
+                    patrimoine.nom(),
+                    patrimoine.possesseur(),
+                    patrimoine.t(),
+                    updatedPossessions
+            );
+
+            patrimoineService.crupdatePatrimoines(List.of(updatedPatrimoine));
+
+            return new ArrayList<>(updatedPossessions);
+
     }
+
 
     public Optional<Possession> getPatrimoinePossessionByNom(
             String nomPatrimoine, String nomPossession) {
