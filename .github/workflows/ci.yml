@@ -23,8 +23,8 @@ jobs:
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_access_key: ${{ secrets.POJA_AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}
 
           application_name: 'patrimoine-preprod-app'
           environment_name: 'patrimoine-preprod-app-env'
