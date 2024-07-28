@@ -2,9 +2,9 @@ name: Deploy preprod to elastic Beanstalk
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "test" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "test" ]
   workflow_dispatch:
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
           environment_name: 'patrimoine-preprod-app-env'
           version_label: ${{ github.sha }}
           region: eu-west-3
-          deployment_package: deploy.zip         #
+          deployment_package: PojaApplication.jar
   test:
     runs-on: ubuntu-latest
     steps:
