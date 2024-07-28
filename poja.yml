@@ -4,10 +4,10 @@ aurora_max_capacity: null
 aurora_min_capacity: null
 aurora_scale_point: null
 aurora_sleep: null
-aws_account_id: ''
+aws_account_id: '144961001055'
 cli_version: 16.1.1
-codeartifact_domain_name: ''
-codeartifact_repository_name: ''
+codeartifact_domain_name: 'depot_patrimoine'
+codeartifact_repository_name: '"patrimoine",'
 custom_java_deps: poja-custom-java-deps.txt
 custom_java_env_vars: poja-custom-java-env-vars.txt
 custom_java_repositories: poja-custom-java-repositories.txt
