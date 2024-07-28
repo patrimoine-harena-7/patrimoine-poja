@@ -18,9 +18,10 @@ public class GrapheController {
     private GrapheService grapheService;
 
     @GetMapping
-    public ResponseEntity<byte[]> getPatrimoineGraph(@PathVariable String nom_patrimoine,
-                                                     @RequestParam LocalDate debut,
-                                                     @RequestParam LocalDate fin) {
+    public ResponseEntity<byte[]> getPatrimoineGraph(
+            @PathVariable String nom_patrimoine,
+            @RequestParam LocalDate debut,
+            @RequestParam LocalDate fin) {
         byte[] image = grapheService.getPatrimoineGraph(nom_patrimoine, debut, fin);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);

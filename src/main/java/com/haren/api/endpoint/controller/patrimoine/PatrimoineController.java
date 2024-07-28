@@ -16,13 +16,15 @@ public class PatrimoineController {
     private PatrimoineService patrimoineService;
 
     @GetMapping
-    public ResponseEntity<List<Patrimoine>> getPatrimoines(@RequestParam(required = false) Integer page,
-                                                           @RequestParam(required = false) Integer pageSize) {
+    public ResponseEntity<List<Patrimoine>> getPatrimoines(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer pageSize) {
         return ResponseEntity.ok(patrimoineService.getPatrimoines(page, pageSize));
     }
 
     @PutMapping
-    public ResponseEntity<List<Patrimoine>> crupdatePatrimoines(@RequestBody List<Patrimoine> patrimoines) {
+    public ResponseEntity<List<Patrimoine>> crupdatePatrimoines(
+            @RequestBody List<Patrimoine> patrimoines) {
         return ResponseEntity.ok(patrimoineService.crupdatePatrimoines(patrimoines));
     }
 

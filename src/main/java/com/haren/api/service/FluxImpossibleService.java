@@ -8,8 +8,9 @@ import java.util.List;
 
 @Service
 public class FluxImpossibleService {
-    public List<FluxImpossibles> getPatrimoineFluxImpossibles(String nomPatrimoine, LocalDate debut, LocalDate fin) {
 
+    public List<FluxImpossibles> getPatrimoineFluxImpossibles(
+            String nomPatrimoine, LocalDate debut, LocalDate fin) {
         return List.of();
     }
 }

@@ -17,10 +17,11 @@ public class FluxImpossibleController {
     private FluxImpossibleService fluxImpossibleService;
 
     @GetMapping
-    public ResponseEntity<List<FluxImpossibles>> getPatrimoineFluxImpossibles(@PathVariable String nom_patrimoine,
-                                                                              @RequestParam LocalDate debut,
-                                                                              @RequestParam LocalDate fin) {
-        return ResponseEntity.ok(fluxImpossibleService.getPatrimoineFluxImpossibles(nom_patrimoine, debut, fin));
+    public ResponseEntity<List<FluxImpossibles>> getPatrimoineFluxImpossibles(
+            @PathVariable String nom_patrimoine,
+            @RequestParam LocalDate debut,
+            @RequestParam LocalDate fin) {
+        return ResponseEntity.ok(
+                fluxImpossibleService.getPatrimoineFluxImpossibles(nom_patrimoine, debut, fin));
     }
 }
-

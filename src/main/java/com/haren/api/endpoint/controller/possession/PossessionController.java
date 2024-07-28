@@ -21,29 +21,31 @@ public class PossessionController {
             @PathVariable String nom_patrimoine,
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer pageSize) {
-        return ResponseEntity.ok(possessionService.getPatrimoinePossessions(nom_patrimoine, page, pageSize));
+        return ResponseEntity.ok(
+                possessionService.getPatrimoinePossessions(nom_patrimoine, page, pageSize));
     }
 
     @PutMapping("/{nom_patrimoine}/possessions")
     public ResponseEntity<List<Possession>> crupdatePatrimoinePossessions(
             @PathVariable String nom_patrimoine,
             @RequestBody List<Possession> possessions) {
-        return ResponseEntity.ok(possessionService.crupdatePatrimoinePossessions(nom_patrimoine, possessions));
+        return ResponseEntity.ok(
+                possessionService.crupdatePatrimoinePossessions(nom_patrimoine, possessions));
     }
 
-    @GetMapping("/{nom_possessions/possessions/{nom_possessions}")
-    public ResponseEntity<Optional<Possession>> getPatrimoinePossessionByNom(@PathVariable String nom_patrimoine,
-                                                                             @PathVariable String nom_possession) {
-        return ResponseEntity.ok(possessionService.getPatrimoinePossessionByNom(nom_patrimoine, nom_possession));
+    @GetMapping("/{nom_patrimoine}/possessions/{nom_possession}")
+    public ResponseEntity<Optional<Possession>> getPatrimoinePossessionByNom(
+            @PathVariable String nom_patrimoine,
+            @PathVariable String nom_possession) {
+        return ResponseEntity.ok(
+                possessionService.getPatrimoinePossessionByNom(nom_patrimoine, nom_possession));
     }
 
-    @DeleteMapping("/{nom_possession}/possessions/{nom_possessions}")
-    public ResponseEntity<Void> deletePatrimoinePossessionByNom(@PathVariable String nom_patrimoine,
-                                                                @PathVariable String nom_possession) {
+    @DeleteMapping("/{nom_patrimoine}/possessions/{nom_possession}")
+    public ResponseEntity<Void> deletePatrimoinePossessionByNom(
+            @PathVariable String nom_patrimoine,
+            @PathVariable String nom_possession) {
         possessionService.deletePatrimoinePossessionByNom(nom_patrimoine, nom_possession);
         return ResponseEntity.noContent().build();
     }
-
-
 }
-

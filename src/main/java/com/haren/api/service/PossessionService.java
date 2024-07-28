@@ -12,17 +12,19 @@ import java.util.Optional;
 public class PossessionService {
 
     private List<Patrimoine> patrimoineList = new ArrayList<>();
-    public List<Possession> getPatrimoinePossessions(String nomPatrimoine, Integer page, Integer pageSize) {
 
+    public List<Possession> getPatrimoinePossessions(
+            String nomPatrimoine, Integer page, Integer pageSize) {
         return List.of();
     }
 
-    public List<Possession> crupdatePatrimoinePossessions(String nomPatrimoine, List<Possession> possessions) {
-
+    public List<Possession> crupdatePatrimoinePossessions(
+            String nomPatrimoine, List<Possession> possessions) {
         return List.of();
     }
 
-    public Optional<Possession> getPatrimoinePossessionByNom(String nomPatrimoine, String nomPossession) {
+    public Optional<Possession> getPatrimoinePossessionByNom(
+            String nomPatrimoine, String nomPossession) {
         return patrimoineList.stream()
                 .filter(p -> p.nom().equals(nomPatrimoine))
                 .flatMap(patrimoine -> patrimoine.possessions().stream())
@@ -30,6 +32,7 @@ public class PossessionService {
                 .findFirst();
     }
 
-    public void deletePatrimoinePossessionByNom(String nomPatrimoine, String nomPossession) {
+    public void deletePatrimoinePossessionByNom(
+            String nomPatrimoine, String nomPossession) {
     }
 }
