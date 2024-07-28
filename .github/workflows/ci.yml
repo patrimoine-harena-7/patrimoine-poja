@@ -1,52 +1,50 @@
-name: CI
+name: Deploy preprod to elastic Beanstalk
 
 on:
   push:
-    branches:
-      - '*'
+    branches: [ "test" ]
   pull_request:
-    branches:
-      - '*'
+    branches: [ "test" ]
   workflow_dispatch:
 
-  workflow_call:
-
-
-
 jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: action/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Build project
+        uses: mvn clean install - DskipTests
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.POJA_AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}
+
+          application_name: 'patrimoine-preprod-app'
+          environment_name: 'patrimoine-preprod-app-env'
+          version_label: ${{ github.sha }}
+          region: eu-west-3
+          deployment_package: PojaApplication.jar
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-
-    env:
-      AWS_REGION: eu-west-3
-
     steps:
-      - uses: actions/checkout@v4.1.6
-      - uses: hei-school/aws-credentials-setter@v1.0.3
-        with:
-          secrets: ${{ toJSON(secrets) }}
-          region: ${{ env.AWS_REGION }}
-
-      - uses: actions/setup-java@v4.2.1
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.13.0
         with:
           java-version: '21'
-          distribution: 'corretto'
-      - run: chmod +x gradlew
-      - run: ./gradlew test
+          java-distribution: 'temurin'
+          maven-version: '3.9.6'
 
-      
+      - name: test with coverage (min -> 80%)
+        run: mvn -B clean verify '-Dtest=school.hei.patrimoine.modele.**'
 
-  format:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
 
-    steps:
-      - uses: actions/checkout@v4.1.6
-      - uses: actions/setup-java@v4.2.1
-        with:
-          java-version: '21'
-          distribution: 'corretto'
 
-      - run: chmod +x format.sh
-      - run: ./format.sh && git diff --exit-code
+
+
