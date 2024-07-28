@@ -2,7 +2,6 @@ package com.haren.api.service;
 
 import org.springframework.stereotype.Service;
 import school.hei.patrimoine.modele.Patrimoine;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class PatrimoineService {
         return List.of();
     }
 
-    public Patrimoine getPatrimoineByNom(String nomPatrimoine) {
+    public Patrimoine getPatrimoineByNom(String nom_patrimoine) {
         return null;
     }
 }
