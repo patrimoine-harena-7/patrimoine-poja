@@ -29,7 +29,7 @@ public class PatrimoineController {
     }
 
     @GetMapping("/{nom_patrimoine}")
-    public ResponseEntity<Patrimoine> getPatrimoineByNom(@PathVariable String nom_patrimoine) {
-        return ResponseEntity.ok(patrimoineService.getPatrimoineByNom(nom_patrimoine));
+    public ResponseEntity<Patrimoine> getPatrimoineByName(@PathVariable String nom_patrimoine) {
+        return ResponseEntity.ok(patrimoineService.getPatrimoineByName(nom_patrimoine));
     }
 }

@@ -34,7 +34,11 @@ public class PatrimoineService {
         return new ArrayList<>(patrimoineMap.values());
     }
 
-    public Patrimoine getPatrimoineByNom(String nom_patrimoine) {
-        return null;
+    public Patrimoine getPatrimoineByName(String nom_patrimoine) {
+        Patrimoine patrimoineName = patrimoineList.stream()
+                .filter(p -> p.nom().equalsIgnoreCase(nom_patrimoine.replace("_", " ")))
+                .findFirst()
+                .orElse(null);
+        return patrimoineName;
     }
 }
