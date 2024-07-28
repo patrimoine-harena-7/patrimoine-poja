@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Build project
-        uses: mvn clean install - DskipTests
+        uses: mvn clean install -- DskipTests
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
