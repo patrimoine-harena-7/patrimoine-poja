@@ -58,7 +58,6 @@ public class PossessionService {
             patrimoineService.crupdatePatrimoines(List.of(updatedPatrimoine));
 
             return new ArrayList<>(updatedPossessions);
-
     }
 
 
@@ -71,7 +70,29 @@ public class PossessionService {
                 .findFirst();
     }
 
-    public void deletePatrimoinePossessionByNom(
-            String nomPatrimoine, String nomPossession) {
+    public void deletePatrimoinePossessionByNom(String nomPatrimoine, String nomPossession) {
+
+        Patrimoine patrimoine = patrimoineService.getPatrimoineByName(nomPatrimoine);
+
+        if (patrimoine == null) {
+            throw new IllegalArgumentException("The heritage with the given name does not exist.");
+        }
+
+        Set<Possession> updatedPossessions = new HashSet<>(patrimoine.possessions());
+        boolean possessionRemoved = updatedPossessions.removeIf(p -> p.getNom().equals(nomPossession));
+
+        if (!possessionRemoved) {
+            throw new IllegalArgumentException("The possession with the given name does not exist.");
+        }
+
+        Patrimoine updatedPatrimoine = new Patrimoine(
+                patrimoine.nom(),
+                patrimoine.possesseur(),
+                patrimoine.t(),
+                updatedPossessions
+        );
+
+        patrimoineService.crupdatePatrimoines(List.of(updatedPatrimoine));
     }
+
 }
