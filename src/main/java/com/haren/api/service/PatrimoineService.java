@@ -2,8 +2,8 @@ package com.haren.api.service;
 
 import org.springframework.stereotype.Service;
 import school.hei.patrimoine.modele.Patrimoine;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 @Service
 public class PatrimoineService {
@@ -20,7 +20,18 @@ public class PatrimoineService {
     }
 
     public List<Patrimoine> crupdatePatrimoines(List<Patrimoine> patrimoines) {
-        return List.of();
+
+        Map<String, Patrimoine> patrimoineMap = new HashMap<>();
+
+        for (Patrimoine existingPatrimoines  : patrimoines) {
+            patrimoineMap.put(existingPatrimoines.nom(), existingPatrimoines);
+        }
+
+        for (Patrimoine newPatrimoine : patrimoines) {
+            patrimoineMap.put(newPatrimoine.nom(), newPatrimoine);
+        }
+
+        return new ArrayList<>(patrimoineMap.values());
     }
 
     public Patrimoine getPatrimoineByNom(String nom_patrimoine) {
