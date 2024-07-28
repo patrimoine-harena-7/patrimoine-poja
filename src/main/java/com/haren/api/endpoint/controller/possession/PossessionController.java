@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import school.hei.patrimoine.modele.possession.Possession;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/patrimoines")
@@ -31,8 +32,8 @@ public class PossessionController {
     }
 
     @GetMapping("/{nom_possessions/possessions/{nom_possessions}")
-    public ResponseEntity<Possession> getPatrimoinePossessionByNom(@PathVariable String nom_patrimoine,
-                                                                           @PathVariable String nom_possession) {
+    public ResponseEntity<Optional<Possession>> getPatrimoinePossessionByNom(@PathVariable String nom_patrimoine,
+                                                                             @PathVariable String nom_possession) {
         return ResponseEntity.ok(possessionService.getPatrimoinePossessionByNom(nom_patrimoine, nom_possession));
     }
 

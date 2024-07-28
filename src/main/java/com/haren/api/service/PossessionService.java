@@ -23,7 +23,11 @@ public class PossessionService {
     }
 
     public Optional<Possession> getPatrimoinePossessionByNom(String nomPatrimoine, String nomPossession) {
-        return null;
+        return patrimoineList.stream()
+                .filter(p -> p.nom().equals(nomPatrimoine))
+                .flatMap(patrimoine -> patrimoine.possessions().stream())
+                .filter(possession -> possession.getNom().equals(nomPossession))
+                .findFirst();
     }
 
     public void deletePatrimoinePossessionByNom(String nomPatrimoine, String nomPossession) {

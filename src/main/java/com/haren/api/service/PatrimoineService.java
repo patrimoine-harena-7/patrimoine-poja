@@ -15,7 +15,6 @@ public class PatrimoineService {
     }
 
     public List<Patrimoine> crupdatePatrimoines(List<Patrimoine> patrimoines) {
-
         return List.of();
     }
 

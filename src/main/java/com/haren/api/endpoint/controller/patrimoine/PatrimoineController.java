@@ -30,5 +30,4 @@ public class PatrimoineController {
     public ResponseEntity<Patrimoine> getPatrimoineByNom(@PathVariable String nom_patrimoine) {
         return ResponseEntity.ok(patrimoineService.getPatrimoineByNom(nom_patrimoine));
     }
-
 }
