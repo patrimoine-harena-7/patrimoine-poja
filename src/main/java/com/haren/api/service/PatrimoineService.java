@@ -11,7 +11,12 @@ public class PatrimoineService {
     private List<Patrimoine> patrimoineList = new ArrayList<>();
 
     public List<Patrimoine> getPatrimoines(Integer page, Integer pageSize) {
-        return List.of();
+        int start = (page - 1) * pageSize;
+        int end = Math.min(start + pageSize, patrimoineList.size());
+        if (start > end) {
+            return List.of();
+        }
+        return patrimoineList.subList(start, end);
     }
 
     public List<Patrimoine> crupdatePatrimoines(List<Patrimoine> patrimoines) {
