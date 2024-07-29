@@ -5,7 +5,6 @@ on:
     branches:
       - 'prod'
       - 'preprod'
-
   workflow_dispatch:
     inputs:
       run_tests:
@@ -16,7 +15,6 @@ on:
         options:
           - 'yes'
           - 'no'
-
   workflow_call:
 
 jobs:
@@ -36,10 +34,12 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
 
-      - uses: hei-school/aws-credentials-setter@v1.0.3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
         with:
-          secrets: ${{ toJSON(secrets) }}
-          region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.POJA_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Disable tests
         if: ${{ github.event.inputs.run_tests == 'no' }}
@@ -50,4 +50,3 @@ jobs:
 
       - name: Deploy application
         run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ github.ref_name }}-compute-harena-com --capabilities CAPABILITY_IAM --parameter-overrides Env=${{ github.ref_name }} --resolve-s3 --tags app=harena-com env=${{ github.ref_name }} user:poja=harena-com
-
