@@ -128,6 +128,5 @@ public class PatrimoineControllerTest {
                 .andExpect(jsonPath("$[0].possessions[0].nom").value("Argent"))
                 .andExpect(jsonPath("$[0].possessions[0].valeurComptable").value(1000));
 
-
     }
 }

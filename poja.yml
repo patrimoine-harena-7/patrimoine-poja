@@ -19,9 +19,9 @@ frontal_reserved_concurrent_executions_nb: null
 jacoco_min_coverage: '0.8'
 java_facade_it: FacadeIT
 package_full_name: com.haren.api
-poja_domain_owner: 088312068315
-poja_python_repository_domain: python-numer-tech
-poja_python_repository_name: numer-python-store
+poja_domain_owner: 016161980486
+poja_python_repository_domain: patrimoine-harena
+poja_python_repository_name: harena-maven
 prod_db_cluster_timeout: '300'
 region: eu-west-3
 ses_source: lou@hei.school

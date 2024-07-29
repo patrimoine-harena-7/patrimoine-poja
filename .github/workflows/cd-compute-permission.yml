@@ -23,10 +23,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.6
 
-      - uses: hei-school/aws-credentials-setter@v1.0.3
+      - name: Set AWS Credentials
+        uses: hei-school/aws-credentials-setter@v1.0.3
         with:
-          secrets: ${{ toJSON(secrets) }}
-          region: ${{ env.AWS_REGION }}
+          secrets: |
+            {
+              "github_token": "${{ secrets.GITHUB_TOKEN }}",
+              "POJA_AWS_ACCESS_KEY_ID": "${{ secrets.POJA_AWS_ACCESS_KEY_ID }}",
+              "POJA_AWS_SECRET_ACCESS_KEY": "${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}",
+              "POJA_GH_USERNAME": "${{ secrets.POJA_GH_USERNAME }}",
+              "POJA_GH_TOKEN": "${{ secrets.POJA_GH_TOKEN }}"
+            }
+          region: eu-west-3
+        env:
+          AWS_REGION: eu-west-3
+
 
       - name: Deploy permission stack
         uses: aws-actions/aws-cloudformation-github-deploy@v1
