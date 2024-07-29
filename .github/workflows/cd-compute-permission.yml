@@ -5,7 +5,6 @@ on:
     branches:
       - 'prod'
       - 'preprod'
-
   workflow_dispatch:
 
 jobs:
@@ -13,7 +12,6 @@ jobs:
     if: github.ref_name == 'prod' || github.ref_name == 'preprod'
 
     runs-on: ubuntu-latest
-
     timeout-minutes: 20
 
     env:
@@ -23,22 +21,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.6
 
-
-      - name: Set AWS Credentials
-        uses: hei-school/aws-credentials-setter@v1.0.3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
         with:
-          secrets: |
-            {
-              "github_token": "${{ secrets.GITHUB_TOKEN }}",
-              "POJA_AWS_ACCESS_KEY_ID": "${{ secrets.POJA_AWS_ACCESS_KEY_ID }}",
-              "POJA_AWS_SECRET_ACCESS_KEY": "${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}",
-              "POJA_GH_USERNAME": "${{ secrets.POJA_GH_USERNAME }}",
-              "POJA_GH_TOKEN": "${{ secrets.POJA_GH_TOKEN }}"
-            }
-          region: eu-west-3
-        env:
-          AWS_REGION: eu-west-3
-
+          aws-access-key-id: ${{ secrets.POJA_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Deploy permission stack
         uses: aws-actions/aws-cloudformation-github-deploy@v1
