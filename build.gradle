@@ -113,7 +113,7 @@ publishing {
         maven {
             url = uri('https://patrimoine-harena-016161980486.d.codeartifact.eu-west-3.amazonaws.com/maven/harena-mav/')
             credentials {
-                aws = ""
+                username = "aws"
                 password = project.findProperty("aws.codeartifact.auth.token") ?: System.getenv("CODEARTIFACT_AUTH_TOKEN")
             }
         }
