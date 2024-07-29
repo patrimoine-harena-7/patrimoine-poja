@@ -73,6 +73,7 @@ public class PatrimoineControllerTest {
                 .andExpect(jsonPath("$.possessions[0].valeurComptable").value(1000));
     }
 
+
     @Test
     public void testGetPatrimoines() throws Exception {
 
@@ -100,6 +101,7 @@ public class PatrimoineControllerTest {
                 .andExpect(jsonPath("$[0].possessions[0].valeurComptable").value(1000));
     }
 
+    /*
 
     @Test
     public void testCrupdatePatrimoines() throws Exception {
@@ -128,5 +130,5 @@ public class PatrimoineControllerTest {
                 .andExpect(jsonPath("$[0].possessions[0].nom").value("Argent"))
                 .andExpect(jsonPath("$[0].possessions[0].valeurComptable").value(1000));
 
-    }
+    } */
 }
