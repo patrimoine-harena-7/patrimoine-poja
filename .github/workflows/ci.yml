@@ -8,10 +8,7 @@ on:
     branches:
       - '*'
   workflow_dispatch:
-
   workflow_call:
-
-
 
 jobs:
   test:
@@ -23,19 +20,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4.1.6
-      - uses: hei-school/aws-credentials-setter@v1.0.3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
         with:
-          secrets: ${{ toJSON(secrets) }}
-          region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.POJA_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - uses: actions/setup-java@v4.2.1
         with:
           java-version: '21'
           distribution: 'corretto'
+
       - run: chmod +x gradlew
       - run: ./gradlew test
-
-      
 
   format:
     runs-on: ubuntu-latest
@@ -43,10 +42,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4.1.6
+
       - uses: actions/setup-java@v4.2.1
         with:
           java-version: '21'
           distribution: 'corretto'
 
-     # - run: chmod +x format.sh
-     #  - run: ./format.sh && git diff --exit-code
+      # Uncomment and configure these lines according to your needs
+      # - run: chmod +x format.sh
+      # - run: ./format.sh && git diff --exit-code
