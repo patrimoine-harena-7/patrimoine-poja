@@ -48,6 +48,5 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
 
-      # Uncomment and configure these lines according to your needs
       # - run: chmod +x format.sh
       # - run: ./format.sh && git diff --exit-code
