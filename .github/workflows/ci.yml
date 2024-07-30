@@ -31,7 +31,7 @@ jobs:
       - name: Retrieve CodeArtifact Token
         id: retrieve-token
         run: |
-          TOKEN=$(aws codeartifact get-authorization-token --domain patrimoine-harena-016161980486 --domain-owner YOUR_AWS_ACCOUNT_ID --query authorizationToken --output text)
+          TOKEN=$(aws codeartifact get-authorization-token --domain patrimoine-harena-016161980486 --domain-owner --query authorizationToken --output text)
           echo "CODEARTIFACT_AUTH_TOKEN=$TOKEN" >> $GITHUB_ENV
 
       - uses: actions/setup-java@v4.2.1
