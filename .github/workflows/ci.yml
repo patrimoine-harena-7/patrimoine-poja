@@ -28,6 +28,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.POJA_AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Retrieve CodeArtifact Token
+        id: retrieve-token
+        run: |
+          TOKEN=$(aws codeartifact get-authorization-token --domain patrimoine-harena-016161980486 --domain-owner YOUR_AWS_ACCOUNT_ID --query authorizationToken --output text)
+          echo "CODEARTIFACT_AUTH_TOKEN=$TOKEN" >> $GITHUB_ENV
+
       - uses: actions/setup-java@v4.2.1
         with:
           java-version: '21'
