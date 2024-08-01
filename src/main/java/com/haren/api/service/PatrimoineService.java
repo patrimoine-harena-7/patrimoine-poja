@@ -1,5 +1,7 @@
 package com.haren.api.service;
 
+import com.haren.api.repository.model.PatrimoineRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import school.hei.patrimoine.modele.Patrimoine;
 
@@ -8,15 +10,15 @@ import java.util.*;
 @Service
 public class PatrimoineService {
 
-    private List<Patrimoine> patrimoineList = new ArrayList<>();
+    @Autowired
+    private PatrimoineRepository patrimoineRepository;
 
     public List<Patrimoine> getPatrimoines(Integer page, Integer pageSize) {
-        int start = (page - 1) * pageSize;
-        int end = Math.min(start + pageSize, patrimoineList.size());
-        if (start > end) {
-            return List.of();
-        }
-        return patrimoineList.subList(start, end);
+        return patrimoineRepository.getListPatrimoines(page, pageSize);
+    }
+
+    public Patrimoine getPatrimoineByName(String nomPatrimoine) {
+        return patrimoineRepository.getPatrimoineByNom(nomPatrimoine);
     }
 
     public List<Patrimoine> crupdatePatrimoines(List<Patrimoine> patrimoines) {
@@ -31,14 +33,6 @@ public class PatrimoineService {
             patrimoineMap.put(newPatrimoine.nom(), newPatrimoine);
         }
 
-        return new ArrayList<>(patrimoineMap.values());
-    }
-
-    public Patrimoine getPatrimoineByName(String nom_patrimoine) {
-        Patrimoine patrimoineName = patrimoineList.stream()
-                .filter(p -> p.nom().equalsIgnoreCase(nom_patrimoine.replace("_", " ")))
-                .findFirst()
-                .orElse(null);
-        return patrimoineName;
+        return patrimoines;
     }
 }
